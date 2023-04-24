@@ -1,8 +1,9 @@
-import client from './config'
+import { client } from "./config";
 
 const startDatabase = async (): Promise<void> => {
-    await client.connect()
-    console.log('Database started.')
-}
+  await client.connect();
+  console.log("Database connected!");
+};
 
-export default startDatabase
+
+export { startDatabase}
