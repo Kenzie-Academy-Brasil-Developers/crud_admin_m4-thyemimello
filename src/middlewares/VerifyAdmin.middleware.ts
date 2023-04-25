@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../error";
-import listUsersService from "../services/users/listUser.service";
 
 
 const verifyAdminMiddleware = async (
@@ -8,10 +7,12 @@ const verifyAdminMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-    const{ isAdmin } = req.params;
+    const{ admin } = res.locals;
+
+    console.log(admin)
     
 
-  if (!isAdmin ) {
+  if (!admin ) {
     throw new AppError("Insufficient Permission", 403);
   }
 

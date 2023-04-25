@@ -24,18 +24,18 @@ const loginService = async (payload: TLoginRequest): Promise<TLoginResponse> => 
   const user = queryResult.rows[0];
 
   if (queryResult.rowCount === 0) {
-    throw new AppError("Invalid email or password", 401);
+    throw new AppError("Wrong email/password", 401);
   }
 
   const comparePassword: boolean = await bcrypt.compare(payload.password, user.password)
 
   if (comparePassword === false) {
-    throw new AppError("Invalid email or password", 401);
+    throw new AppError("Wrong email/password", 401);
   }
 
   
   const token: string = jwt.sign(
-    { email: user.email, password: user.password },
+    {admin: user.admin},
     process.env.SECRET_KEY!,
     {
       expiresIn: "1d",

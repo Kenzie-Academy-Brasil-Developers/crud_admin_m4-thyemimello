@@ -2,8 +2,8 @@ import format from "pg-format";
 import { client } from "../../database";
 
 const deleteUserService = async (userId: number) => {
-    const queryString: string = format(
-      `
+  const queryString: string = format(
+    `
     UPDATE
       users
     SET 
@@ -12,10 +12,10 @@ const deleteUserService = async (userId: number) => {
       id = %L;
   
     `,
-      userId
-    );
-  
-    await client.query(queryString);
-  };
+    userId
+  );
 
-  export default deleteUserService
+  await client.query(queryString);
+};
+
+export default deleteUserService;

@@ -15,6 +15,7 @@ const responseUserSchema = userSchema.omit({ password: true });
 const updateUserSchema = requestUserSchema.partial()
 
 
+
 const usersListSchema = responseUserSchema.array();
 const userUpdateSchema = requestUserSchema.omit({
   name: true,

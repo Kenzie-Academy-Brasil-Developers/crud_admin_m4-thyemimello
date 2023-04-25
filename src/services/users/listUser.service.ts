@@ -1,15 +1,13 @@
 import { QueryResult } from "pg";
 import { TUserResponse } from "../../interfaces/users.interfaces";
 import { client } from "../../database";
-import { AppError } from "../../error";
-import jwt from "jsonwebtoken";
 import "dotenv/config";
 
 const listUsersService = async (): Promise<Array<TUserResponse>> => {
 
   const queryString: string = `
       SELECT
-        *
+        "id", "name", "email", "admin"
       FROM
         users;
     `;

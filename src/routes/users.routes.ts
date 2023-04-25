@@ -2,15 +2,14 @@ import { Router } from "express";
 import {
   createUserController, deleteUserController, listUserProfileController, listUsersController, recoverUserController, updateUserController,
 
-  
 } from "../controllers/users/users.controllers";
 import { ensureEmailNotExistMiddleware } from "../middlewares/ensureEmail.middleware";
 import ensureBodyIdValidMiddleware from "../middlewares/ensureBodyIdValid.middleware";
 import { requestUserSchema, updateUserSchema } from "../schemas/users.schemas";
 import { ensureIsOwnerOrAdmin } from "../middlewares/ensureIsOwnerOrAdmin.middleware";
 import { ensureTokenExistsMiddleware } from "../middlewares/EnsureTokenExists.middleware";
-import { verifyAdminMiddleware } from "../middlewares/VerifyAdmin.middleware";
 import ensureIdExists from "../middlewares/EnsureIdExists.middleware";
+import { verifyAdminMiddleware } from "../middlewares/VerifyAdmin.middleware";
 
 
 const userRoutes: Router = Router();
@@ -30,12 +29,12 @@ userRoutes.get(
 
 );
 
-userRoutes.get("/profile",  ensureTokenExistsMiddleware, listUserProfileController );
+userRoutes.get("/profile", ensureTokenExistsMiddleware, listUserProfileController );
 userRoutes.patch(
   "/:id",
   ensureIdExists,
-  ensureIsOwnerOrAdmin,
   ensureTokenExistsMiddleware,
+  ensureIsOwnerOrAdmin,
   ensureBodyIdValidMiddleware(updateUserSchema),
   updateUserController
 

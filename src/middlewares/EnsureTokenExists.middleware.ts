@@ -9,6 +9,8 @@ const ensureTokenExistsMiddleware = (
 ) => {
   let token = req.headers.authorization;
 
+  console.log(token)
+
   if (!token) {
     throw new AppError("Missing Bearer Token", 401);
   }
@@ -20,15 +22,14 @@ const ensureTokenExistsMiddleware = (
     process.env.SECRET_KEY as string,
     (error: any, decoded: any) => {
       if (error) {
-        throw new AppError(error.menssage, 403);
+        throw new AppError(error.menssage, 401);
       }
-      res.locals.user = decoded.isAdmin,
-       
-
+     
+      res.locals.userId = decoded.sub
+      res.locals.admin = decoded.admin
       next();
     }
   );
-
 };
 
-export {ensureTokenExistsMiddleware}
+export { ensureTokenExistsMiddleware };

@@ -1,27 +1,33 @@
-import { QueryResult } from "pg";
-import { requestUserSchema } from "../../schemas/users.schemas";
+import { QueryConfig, QueryResult } from "pg";
+import { requestUserSchema, responseUserSchema } from "../../schemas/users.schemas";
 import { TUser } from "../../interfaces/users.interfaces";
 import { client } from "../../database";
-import format from "pg-format";
+import { AppError } from "../../error";
 
 const recoverUserService = async (userId: number) => {
-    const queryString: string = format(
-      `
+    const queryString: string =      `
     UPDATE
       users
     SET 
       active = true
     WHERE
-      id = %L
+      id = $1 AND active = false
     RETURNING *;    
-    `,
-      userId
-    );
+    `
   
-    const queryResult: QueryResult<TUser> = await client.query(queryString);
+    const queryConfig: QueryConfig = {
+      text: queryString,
+      values: [userId],
+    };
+  
+    const queryResult: QueryResult<TUser> = await client.query(queryConfig);
     const user = queryResult.rows[0];
+
+    if (!user) {
+      throw new AppError("User already active");
+    }
   
-    return requestUserSchema.parse(user);
+    return responseUserSchema.parse(user);
   };
-  
+   
   export default recoverUserService

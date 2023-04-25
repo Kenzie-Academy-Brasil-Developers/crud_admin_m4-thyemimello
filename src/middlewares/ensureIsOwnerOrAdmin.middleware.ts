@@ -1,16 +1,21 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../error";
 
+
 const ensureIsOwnerOrAdmin = async (
-  request: Request,
-  response: Response,
+  req: Request,
+  res: Response,
   next: NextFunction
 ) => {
-  const isAdmin = request.params.isAdmin;
-  const userId = +request.params.id
-  const paramsId = +request.params.id
+  const isAdmin: boolean = res.locals.admin
+  const userId: number = res.locals.userId
+  const paramsId: number = parseInt(req.params.id)
 
-  if (!isAdmin && userId !== paramsId) {
+  console.log(isAdmin)
+  console.log(userId)
+  console.log(paramsId)
+
+  if (!isAdmin && +userId !== +paramsId) {
     throw new AppError("Insufficient Permission", 403);
   }
   next();
