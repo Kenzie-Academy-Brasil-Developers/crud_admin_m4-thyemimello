@@ -2,8 +2,6 @@ import { QueryResult } from "pg";
 import format from "pg-format";
 import { client } from "../../database";
 import * as bcrypt from "bcryptjs"
-
-
 import { TUserRequest, TUserResponse } from "../../interfaces/users.interfaces";
 import { responseUserSchema } from "../../schemas/users.schemas";
 

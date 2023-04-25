@@ -3,7 +3,6 @@ import { client } from "../../database";
 import { TUser, TUserResponse } from "../../interfaces/users.interfaces";
 import {  responseUserSchema } from "../../schemas/users.schemas";
 
-
 const listUserProfileService = async (userId:TUser): Promise<TUserResponse | string> => {
 
 const { id } = userId

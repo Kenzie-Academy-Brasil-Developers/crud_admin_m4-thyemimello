@@ -8,10 +8,7 @@ const verifyAdminMiddleware = async (
   next: NextFunction
 ) => {
     const{ admin } = res.locals;
-
-    console.log(admin)
-    
-
+  
   if (!admin ) {
     throw new AppError("Insufficient Permission", 403);
   }

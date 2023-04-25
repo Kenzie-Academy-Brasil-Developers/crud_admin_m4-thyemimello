@@ -9,8 +9,6 @@ const ensureTokenExistsMiddleware = (
 ) => {
   let token = req.headers.authorization;
 
-  console.log(token)
-
   if (!token) {
     throw new AppError("Missing Bearer Token", 401);
   }
