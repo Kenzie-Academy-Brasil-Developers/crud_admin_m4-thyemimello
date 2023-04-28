@@ -29,7 +29,7 @@ const listUserProfileController = async (
   res: Response
 ): Promise<Response> => {
 
-  const user = await listUserProfileService(res.locals.user)
+  const user = await listUserProfileService(res.locals.userId)
 
   return res.json(user);
 };

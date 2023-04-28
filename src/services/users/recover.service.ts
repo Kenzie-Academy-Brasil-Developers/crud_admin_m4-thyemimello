@@ -1,8 +1,8 @@
 import { QueryConfig, QueryResult } from "pg";
-import { requestUserSchema, responseUserSchema } from "../../schemas/users.schemas";
+import { responseUserSchema } from "../../schemas/users.schemas";
 import { TUser } from "../../interfaces/users.interfaces";
 import { client } from "../../database";
-import { AppError } from "../../error";
+
 
 const recoverUserService = async (userId: number) => {
     const queryString: string =      `
@@ -21,12 +21,10 @@ const recoverUserService = async (userId: number) => {
     };
   
     const queryResult: QueryResult<TUser> = await client.query(queryConfig);
+
+     
     const user = queryResult.rows[0];
 
-    if (!user) {
-      throw new AppError("User already active");
-    }
-  
     return responseUserSchema.parse(user);
   };
    

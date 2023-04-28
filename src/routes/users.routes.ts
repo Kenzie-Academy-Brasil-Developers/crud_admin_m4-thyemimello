@@ -10,6 +10,9 @@ import { ensureIsOwnerOrAdmin } from "../middlewares/ensureIsOwnerOrAdmin.middle
 import { ensureTokenExistsMiddleware } from "../middlewares/EnsureTokenExists.middleware";
 import ensureIdExists from "../middlewares/EnsureIdExists.middleware";
 import { verifyAdminMiddleware } from "../middlewares/VerifyAdmin.middleware";
+import ensureUserActive from "../middlewares/ensureActive.middleware";
+
+
 
 
 const userRoutes: Router = Router();
@@ -50,9 +53,10 @@ userRoutes.delete(
 );
 userRoutes.put(
   "/:id/recover",
-  ensureIdExists,
   ensureTokenExistsMiddleware,
   verifyAdminMiddleware,
+  ensureIdExists,
+  ensureUserActive,
   recoverUserController
 
 );

@@ -30,7 +30,8 @@ const ensureIdExists = async (
   if (queryResult.rowCount === 0) {
     throw new AppError("User not found", 404);
   }
-
+  
+ 
   res.locals.user = queryResult.rows[0]
   
   return next();

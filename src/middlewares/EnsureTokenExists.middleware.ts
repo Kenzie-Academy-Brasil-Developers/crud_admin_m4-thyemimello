@@ -20,7 +20,7 @@ const ensureTokenExistsMiddleware = (
     process.env.SECRET_KEY as string,
     (error: any, decoded: any) => {
       if (error) {
-        throw new AppError(error.menssage, 401);
+        throw new AppError(error.message, 401);
       }
      
       res.locals.userId = decoded.sub

@@ -5,8 +5,6 @@ import {  responseUserSchema } from "../../schemas/users.schemas";
 
 const listUserProfileService = async (userId:TUser): Promise<TUserResponse | string> => {
 
-const { id } = userId
-
     const queryString: string = 
       `
       SELECT
@@ -18,7 +16,7 @@ const { id } = userId
     `
     const queryConfig: QueryConfig = {
       text: queryString,
-      values: [id],
+      values: [userId],
     };
 
     const queryResult: QueryResult<TUser> = await client.query(queryConfig);
